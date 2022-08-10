@@ -5,40 +5,39 @@ export const Table = () => {
 
     const [users, setUsers] = useState([])
 
-    const getUsers = async () => {
-        try {
-            let url = `https://jsonplaceholder.typicode.com/users`
-            const response = await fetch(url)
-            const data = await response.json()
-            setUsers(data)
-        }
-        catch (erro) {
-            console.log(erro)
+
+    useEffect(() => {
+
+        const getUsers = async () => {
+            const data = await fetch(`https://jsonplaceholder.typicode.com/users`)
+            const dataJson = await data.json();
+            setUsers(dataJson)
         }
 
-    }
+        getUsers()
+
+    }, []);
+
 
     const columns = [{
-        dataField: 'name',
+        dataField: 'id',
         text: 'User ID'
     }, {
-        dataField: 'id',
+        dataField: 'name',
         text: 'User Name'
     }, {
         dataField: 'username',
-        text: 'usernama'
+        text: 'username'
     }];
     // branch master
     return (
         <>
-
-            {console.log(users)}
-            {/* <BootstrapTable
+            <BootstrapTable
                 keyField='id'
                 data={users}
                 columns={columns}
 
-            /> */}
+            />
         </>
     );
 }
