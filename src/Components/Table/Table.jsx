@@ -5,13 +5,18 @@ export const Table = () => {
 
     const [users, setUsers] = useState([])
 
-    useEffect(() => {
-        let url = `https://jsonplaceholder.typicode.com/users`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => setUsers(data))
-    }, []);
+    const getUsers = async () => {
+        try {
+            let url = `https://jsonplaceholder.typicode.com/users`
+            const response = await fetch(url)
+            const data = await response.json()
+            setUsers(data)
+        }
+        catch (erro) {
+            console.log(erro)
+        }
 
+    }
 
     const columns = [{
         dataField: 'name',
@@ -26,12 +31,14 @@ export const Table = () => {
     // branch master
     return (
         <>
-            <BootstrapTable
-            keyField='id'
-            data={users}
-            columns = {columns}
-    
-            />
+
+            {console.log(users)}
+            {/* <BootstrapTable
+                keyField='id'
+                data={users}
+                columns={columns}
+
+            /> */}
         </>
     );
 }
